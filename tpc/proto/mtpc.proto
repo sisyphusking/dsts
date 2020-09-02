@@ -1,0 +1,62 @@
+syntax = "proto3";
+package tpc;
+option go_package = ".;proto"; //这里需要注意下
+import "google/protobuf/empty.proto";
+
+service Commit{
+  rpc Propose(ProposeRequest) returns (Response);
+  rpc Precommit(PrecommitRequest) returns (Response);
+  rpc Commit(CommitRequest) returns (Response);
+  rpc Put(Entry) returns (Response);
+  rpc Get(Msg) returns (Value);
+  rpc NodeInfo(google.protobuf.Empty) returns (Info);
+}
+
+message ProposeRequest{
+  string Key = 1;
+  bytes Value = 2;
+  CommitType CommitType = 3;
+  uint64 index = 4;
+}
+
+enum  CommitType {
+  TWO_PHASE_COMMIT = 0;
+  THREE_PHASE_COMMIT = 1;
+}
+
+enum Type {
+  ACK = 0 ;
+  NACK = 1;
+}
+
+message Response{
+  Type Type = 1;
+}
+
+
+message PrecommitRequest {
+  uint64 index = 1;
+}
+
+message CommitRequest{
+  uint64 index = 1;
+  bool isRollback = 2;
+}
+
+message  Entry{
+  string key = 1;
+  bytes value = 2;
+}
+
+message Msg{
+  string key = 1;
+}
+
+message Value {
+  bytes value = 1;
+}
+
+message Info {
+  uint64 height = 1;
+}
+

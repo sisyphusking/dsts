@@ -1,0 +1,3 @@
+committype: three-phase
+timeout: 1000 # ms, timeout after which the message is considered unacknowledged (only for three-phase mode, because two-phase is blocking by design)
+hooks: hooks/src/hooks.go

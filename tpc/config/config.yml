@@ -1,0 +1,13 @@
+
+db:
+  address: localhost:3306
+  username: root
+  password: psw
+
+
+log:
+  logger_level: INFO
+  logger_file: logs/tpc.log
+  log_max_size: 10
+  log_max_age: 30
+  log_max_backups: 5
