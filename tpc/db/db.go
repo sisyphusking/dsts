@@ -24,6 +24,15 @@ type DB struct {
 }
 
 func (db *DB) Put(key string, value []byte) error {
+
+	//应该是这样的写法
+	//if err := db.Instance.AutoMigrate(&KV{}).Error; err != nil {
+	//	return err
+	//}
+	//
+	//if err :=db.Instance.Create(&KV{}).Error; err != nil {
+	//	return err
+	//}
 	db.Instance.AutoMigrate(&KV{})
 	kv := &KV{
 		Model: gorm.Model{},
